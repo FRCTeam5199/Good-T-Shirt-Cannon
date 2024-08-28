@@ -29,13 +29,13 @@ public class PneumaticsSubsystem extends SubsystemBase{
     /*opens the reserve from the main tank */
     public Command openReserve(){
         return new InstantCommand(()-> {
-            reserveSolenoid.set(true);
+            reserveSolenoid.set(false);
         });
     }
 
     /*Closes the reserve from the main tank */
     public Command closeReserve(){
-        return new InstantCommand(()-> reserveSolenoid.set(false));
+        return new InstantCommand(()-> reserveSolenoid.set(true));
     }
 
 

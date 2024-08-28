@@ -60,7 +60,7 @@ public class RobotContainer {
 
     drive.setDefaultCommand(drive.drive());
 
-    leds.setDefaultCommand(leds.yellow());
+    //leds.setDefaultCommand(leds.yellow());
 
   
     
