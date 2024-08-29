@@ -21,8 +21,6 @@ public class PneumaticsSubsystem extends SubsystemBase{
     public PneumaticsSubsystem(){
         unTriggerCannon();
         toggleCompressor();
-        
-
     }
 
 

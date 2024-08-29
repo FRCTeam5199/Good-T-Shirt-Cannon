@@ -17,7 +17,7 @@ public class LEDSubsystem extends SubsystemBase{
     static AddressableLED LEDs = new AddressableLED(Constants.LED_PORT);
     static AddressableLEDBuffer LEDBUFFER = new AddressableLEDBuffer(Constants.LED_LENGTH);
 
-    public void yellow() {
+   /* public void yellow() {
 
             for(var i = 0; i < LEDBUFFER.getLength(); i++) {
                 LEDBUFFER.setRGB(i, 255, 255, 25);
@@ -27,6 +27,7 @@ public class LEDSubsystem extends SubsystemBase{
             LEDs.start();
 
     }
+    */
 
     public void warningLights(){
             for(var i = 0; i < LEDBUFFER.getLength(); i++){
@@ -45,18 +46,52 @@ public class LEDSubsystem extends SubsystemBase{
             LEDs.start();
     }
 
-    public void black() {
-        AddressableLEDBuffer capoLED = new AddressableLEDBuffer(60);
+    public Command yellow() {
+        return new InstantCommand(()-> {
+            AddressableLEDBuffer capoLED = new AddressableLEDBuffer(60);
             for (var i = 0; i < capoLED.getLength(); i++) {
                 // Calculate the hue - hue is easier for rainbows because the color
                 // shape is a circle so only one value needs to precess
                 final var v = 0;
                 // Set the value
-                capoLED.setRGB(i, 232, 193, 36);
+                capoLED.setRGB(i, 255, 150, 0);
             }
             LEDs.setLength(60);
             LEDs.setData(capoLED);
             LEDs.start();
+        });
+    }
+
+    public Command loading() {
+        return new InstantCommand(()-> {
+            AddressableLEDBuffer capoLED = new AddressableLEDBuffer(60);
+        for (var i = 0; i < capoLED.getLength(); i++) {
+            // Calculate the hue - hue is easier for rainbows because the color
+            // shape is a circle so only one value needs to precess
+            final var v = 0;
+            // Set the value
+            capoLED.setRGB(i, 255, 0, 0);
+        }
+        LEDs.setLength(60);
+        LEDs.setData(capoLED);
+        LEDs.start();
+        });
+    }
+
+    public Command loaded() {
+        return new InstantCommand(()-> {
+            AddressableLEDBuffer capoLED = new AddressableLEDBuffer(60);
+            for (var i = 0; i < capoLED.getLength(); i++) {
+                // Calculate the hue - hue is easier for rainbows because the color
+                // shape is a circle so only one value needs to precess
+                final var v = 0;
+                // Set the value
+                capoLED.setRGB(i, 0, 255, 0);
+            }
+            LEDs.setLength(60);
+            LEDs.setData(capoLED);
+            LEDs.start();
+        });
     }
 
     public void yellows(){

@@ -67,7 +67,7 @@ public class RobotContainer {
 
     m_driverController.button(5).onTrue(pneumatics.toggleCompressor());
 
-    m_driverController.b().onTrue(FiringCommands.loadCannon().alongWith(leds.warningLights()));
+    m_driverController.b().onTrue(FiringCommands.loadCannon());
 
     m_driverController.y().onTrue(FiringCommands.fireCannon());
 
