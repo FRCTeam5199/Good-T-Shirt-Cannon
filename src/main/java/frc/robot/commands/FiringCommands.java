@@ -13,7 +13,7 @@ public class FiringCommands extends Command {
     public static Command loadCannon(){
         return new SequentialCommandGroup(
             pneumatics.openReserve(),
-            new WaitCommand(3),
+            new WaitCommand(2.5),
             pneumatics.closeReserve()
         );
     }
