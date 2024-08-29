@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import org.opencv.features2d.FlannBasedMatcher;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -13,10 +15,13 @@ import frc.robot.Constants;
 
 public class PneumaticsSubsystem extends SubsystemBase{
             public static Solenoid reserveSolenoid  = new Solenoid(PneumaticsModuleType.REVPH, Constants.RESERVE_SOLENOID_ID);
-            public static DigitalOutput cannonTrigger = new DigitalOutput(9);
+            public static DigitalOutput cannonTrigger = new DigitalOutput(8);
             public static Compressor compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.REVPH);
 
     public PneumaticsSubsystem(){
+        unTriggerCannon();
+        toggleCompressor();
+        
 
     }
 
@@ -29,13 +34,13 @@ public class PneumaticsSubsystem extends SubsystemBase{
     /*opens the reserve from the main tank */
     public Command openReserve(){
         return new InstantCommand(()-> {
-            reserveSolenoid.set(true);
+            reserveSolenoid.set(false);
         });
     }
 
     /*Closes the reserve from the main tank */
     public Command closeReserve(){
-        return new InstantCommand(()-> reserveSolenoid.set(false));
+        return new InstantCommand(()-> reserveSolenoid.set(true));
     }
 
 

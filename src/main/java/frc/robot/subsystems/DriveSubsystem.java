@@ -43,8 +43,8 @@ public class DriveSubsystem extends SubsystemBase{
 
         //Drive
         return this.runOnce(()-> {
-        left1.set(ControlMode.PercentOutput, ((joystick.getLeftY() + (joystick.getRightX() * Constants.TURN_FACTOR)) * Constants.VOLTAGE_MULT) * Constants.MAX_SPEED_PERCENT);
-        right1.set(ControlMode.PercentOutput, ((-joystick.getLeftY() + (joystick.getRightX() * Constants.TURN_FACTOR)) * Constants.VOLTAGE_MULT) * Constants.MAX_SPEED_PERCENT);
+        left1.set(ControlMode.PercentOutput, ((-joystick.getLeftY() + (joystick.getRightX() * Constants.TURN_FACTOR)) * Constants.VOLTAGE_MULT) * Constants.MAX_SPEED_PERCENT);
+        right1.set(ControlMode.PercentOutput, ((joystick.getLeftY() + (joystick.getRightX() * Constants.TURN_FACTOR)) * Constants.VOLTAGE_MULT) * Constants.MAX_SPEED_PERCENT);
         });
 
         /*
