@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -65,7 +66,7 @@ public class RobotContainer {
   
     
 
-    m_driverController.button(5).onTrue(pneumatics.toggleCompressor());
+    m_driverController.leftBumper().onTrue(new InstantCommand(() -> pneumatics.toggleCompressor()));
 
     m_driverController.b().onTrue(FiringCommands.loadCannon());
 
