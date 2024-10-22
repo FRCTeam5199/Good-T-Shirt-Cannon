@@ -9,10 +9,7 @@ import frc.robot.Constants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.FiringCommands;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.PneumaticsSubsystem;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsBase;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,63 +23,67 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+    // The robot's subsystems and commands are defined here...
+    private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  public DriveSubsystem drive = new DriveSubsystem();
+    public DriveSubsystem drive = new DriveSubsystem();
+    public AimingSubsystem aim = new AimingSubsystem();
 
-  public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
+    public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
 
-  public LEDSubsystem leds = new LEDSubsystem();
+    public LEDSubsystem leds = new LEDSubsystem();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
+    // Replace with CommandPS4Controller or CommandJoystick if needed
+    private final CommandXboxController m_driverController =
+            new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    // Configure the trigger bindings
-    configureBindings();
-  }
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() {
+        // Configure the trigger bindings
+        configureBindings();
+    }
 
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
-   */
-  private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    /**
+     * Use this method to define your trigger->command mappings. Triggers can be created via the
+     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+     * predicate, or via the named factories in {@link
+     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
+     * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+     * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+     * joysticks}.
+     */
+    private void configureBindings() {
+        // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+        new Trigger(m_exampleSubsystem::exampleCondition)
+                .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    drive.setDefaultCommand(drive.drive());
+        drive.setDefaultCommand(drive.drive());
 
-    //leds.setDefaultCommand(leds.yellow());
+        //leds.setDefaultCommand(leds.yellow());
 
-  
-    
 
-    m_driverController.leftBumper().onTrue(new InstantCommand(() -> pneumatics.toggleCompressor()));
+        m_driverController.leftBumper().onTrue(new InstantCommand(() -> pneumatics.toggleCompressor()));
 
-    m_driverController.b().onTrue(FiringCommands.loadCannon());
+        m_driverController.b().onTrue(FiringCommands.loadCannon());
 
-    m_driverController.y().onTrue(FiringCommands.fireCannon());
+        m_driverController.y().onTrue(FiringCommands.fireCannon());
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-  }
+        m_driverController.povUp().onTrue(aim.tilt(.18)).onFalse(aim.tilt(0));
+        m_driverController.povDown().onTrue(aim.tilt(-.25)).onFalse(aim.tilt(0));
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
-  }
+        // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+        // cancelling on release.
+    }
+
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An example command will be run in autonomous
+        return Autos.exampleAuto(m_exampleSubsystem);
+    }
 }
