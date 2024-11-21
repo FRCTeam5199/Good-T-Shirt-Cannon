@@ -30,6 +30,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
     public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
+    public AimingSubsystem aiming = new AimingSubsystem();
 
     public LEDSubsystem leds = new LEDSubsystem();
 
@@ -61,6 +62,11 @@ public class RobotContainer {
         m_driverController.b().onTrue(FiringCommands.loadCannon());
 
         m_driverController.y().onTrue(FiringCommands.fireCannon());
+
+        m_driverController.povUp().onTrue(aiming.toggleButton(0.18)).onFalse(aiming.toggleButton(0.0));
+
+        m_driverController.povDown().onTrue(aiming.toggleButton(-0.25)).onFalse(aiming.toggleButton(0.0));
+
     }
 
     /**
