@@ -29,9 +29,6 @@ import java.awt.event.WindowAdapter;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-//    public DriveSubsystem drive = new DriveSubsystem();
-
     public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
 
     public LEDSubsystem leds = new LEDSubsystem();
@@ -58,17 +55,12 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-//        new Trigger(m_exampleSubsystem::ex5454545454454545454454544444444ampleCondition)
-//                .onTrue(new ExampleCommand(m_exampleSubsystem));
-//
-//        drive.setDefaultCommand(drive.drive());
+        leds.setDefaultCommand(leds.yellow());
+        m_driverController.leftBumper().onTrue(new InstantCommand(() -> pneumatics.toggleCompressor()));
 
-        //leds.setDefaultCommand(leds.yellow());
+        m_driverController.b().onTrue(FiringCommands.loadCannon());
 
-
-        // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-        // cancelling on release.
+        m_driverController.y().onTrue(FiringCommands.fireCannon());
     }
 
     /**
