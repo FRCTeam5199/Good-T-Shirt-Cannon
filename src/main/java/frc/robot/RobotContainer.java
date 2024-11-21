@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -16,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+import java.awt.event.WindowAdapter;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -26,8 +30,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-    public DriveSubsystem drive = new DriveSubsystem();
-    public AimingSubsystem aim = new AimingSubsystem();
+//    public DriveSubsystem drive = new DriveSubsystem();
 
     public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
 
@@ -56,22 +59,13 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        new Trigger(m_exampleSubsystem::exampleCondition)
-                .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-        drive.setDefaultCommand(drive.drive());
+//        new Trigger(m_exampleSubsystem::ex5454545454454545454454544444444ampleCondition)
+//                .onTrue(new ExampleCommand(m_exampleSubsystem));
+//
+//        drive.setDefaultCommand(drive.drive());
 
         //leds.setDefaultCommand(leds.yellow());
 
-
-        m_driverController.leftBumper().onTrue(new InstantCommand(() -> pneumatics.toggleCompressor()));
-
-        m_driverController.b().onTrue(FiringCommands.loadCannon());
-
-        m_driverController.y().onTrue(FiringCommands.fireCannon());
-
-        m_driverController.povUp().onTrue(aim.tilt(.18)).onFalse(aim.tilt(0));
-        m_driverController.povDown().onTrue(aim.tilt(-.25)).onFalse(aim.tilt(0));
 
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
         // cancelling on release.
