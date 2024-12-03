@@ -27,13 +27,13 @@ public class DriveSubsystem extends SubsystemBase{
 
         motorBackL.follow(motorFrontL);
         motorBackR.follow(motorFrontR);
-
+        
         motorFrontR.setNeutralMode(NeutralMode.Brake);
         motorFrontL.setNeutralMode(NeutralMode.Brake);
     }
 
     public Command control() {
-        return new InstantCommand(() -> {
+        return new this.runOnce(() -> {
             motorFrontL.set(ControlMode.PercentOutput, (xbox.getLeftY() + xbox.getRightX()));
             motorFrontR.set(ControlMode.PercentOutput, (xbox.getLeftY() + xbox.getRightX()));
         });

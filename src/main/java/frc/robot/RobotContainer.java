@@ -31,7 +31,7 @@ public class RobotContainer {
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
     public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
     public AimingSubsystem aiming = new AimingSubsystem();
-
+    public DriveSubsystem drive = new DriveSubsystem();
     public LEDSubsystem leds = new LEDSubsystem();
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -56,6 +56,8 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+        drive.setDefaultCommand(drive.drive());
+
         leds.setDefaultCommand(leds.yellow());
         m_driverController.leftBumper().onTrue(new InstantCommand(() -> pneumatics.toggleCompressor()));
 
