@@ -15,6 +15,8 @@ import static java.awt.Color.black;
 public class LEDSubsystem extends SubsystemBase {
     boolean finished;
 
+    //USE ANALOG INPUT/OUTPUT
+
     static AddressableLED LEDs = new AddressableLED(Constants.LED_PORT);
     static AddressableLEDBuffer LEDBUFFER = new AddressableLEDBuffer(Constants.LED_LENGTH);
     static int blackLED1 = 15;
