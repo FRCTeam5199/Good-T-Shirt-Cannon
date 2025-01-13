@@ -33,6 +33,8 @@ public class RobotContainer {
 
     public LEDSubsystem leds = new LEDSubsystem();
 
+    public LEDStripSubsystem ledStrip = new LEDStripSubsystem();
+
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController m_driverController =
             new CommandXboxController(Constants.XBOX_CONTROLLER_PORT);
@@ -72,6 +74,8 @@ public class RobotContainer {
 
         m_driverController.povUp().onTrue(aim.tilt(.18)).onFalse(aim.tilt(0));
         m_driverController.povDown().onTrue(aim.tilt(-.25)).onFalse(aim.tilt(0));
+
+        m_driverController.a().onTrue(ledStrip.test()); 
 
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
         // cancelling on release.

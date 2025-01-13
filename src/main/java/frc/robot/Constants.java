@@ -33,5 +33,11 @@ public class Constants {
     public static final double TILT_HOOD_P = 0.01;
     public static final double TILT_HOOD_I = 0;
     public static final double TILT_HOOD_D = 0;
+
+    //Led Strip port numbers
+    public static final int
+        redStripPort = 1,
+        greenStripPort = 2,
+        blueStripPort = 3;
 }
 
