@@ -75,7 +75,7 @@ public class RobotContainer {
         m_driverController.povUp().onTrue(aim.tilt(.18)).onFalse(aim.tilt(0));
         m_driverController.povDown().onTrue(aim.tilt(-.25)).onFalse(aim.tilt(0));
 
-        m_driverController.a().onTrue(ledStrip.test()); 
+        m_driverController.a().onTrue(ledStrip.testColors()).onFalse(ledStrip.resetLights()); 
 
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
         // cancelling on release.

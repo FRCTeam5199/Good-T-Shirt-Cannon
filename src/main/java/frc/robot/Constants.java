@@ -36,8 +36,8 @@ public class Constants {
 
     //Led Strip port numbers
     public static final int
-        redStripPort = 1,
-        greenStripPort = 2,
-        blueStripPort = 3;
+        redStripPort = 2,
+        greenStripPort = 3,
+        blueStripPort = 1;
 }
 
