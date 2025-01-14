@@ -12,6 +12,7 @@ import frc.robot.commands.FiringCommands;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsBase;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -71,6 +72,7 @@ public class RobotContainer {
         m_driverController.b().onTrue(FiringCommands.loadCannon());
 
         m_driverController.y().onTrue(FiringCommands.fireCannon());
+
 
         m_driverController.povUp().onTrue(aim.tilt(.18)).onFalse(aim.tilt(0));
         m_driverController.povDown().onTrue(aim.tilt(-.25)).onFalse(aim.tilt(0));
