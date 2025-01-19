@@ -22,16 +22,14 @@ public class LEDStripSubsystem extends SubsystemBase {
   private PWM greenStrip;
   private PWM blueStrip;
 
-  private Color colorEnum;
 
   private int pressedCount;
 
-  public LEDStripSubsystem() {
-    redStrip = new PWM(Constants.redStripPort);
-    greenStrip = new PWM(Constants.greenStripPort);
-    blueStrip = new PWM(Constants.blueStripPort);
+  public LEDStripSubsystem(int redPort, int greenPort, int bluePort) {
+    redStrip = new PWM(redPort);
+    greenStrip = new PWM(greenPort);
+    blueStrip = new PWM(bluePort);
 
-    colorEnum = new Color();
 
     pressedCount = 0;
 
@@ -76,30 +74,27 @@ public class LEDStripSubsystem extends SubsystemBase {
     if(eightbit>255) {
       System.err.println("Please make the 8bit value 0 - 255");
       eightbit = 255;
+    } else if(eightbit<0) {
+      System.err.println("Please make the 8bit value 0 - 255");
+      eightbit = 0 ;
     }
 
     return (int) Math.round((((double) eightbit)/255.0)*4095.0);
   }
 
   public Command testColors() {
-
-    System.out.println("Running test light hginigsk");
-    System.out.println(eightbitToMs(255));
     
     return this.runOnce(() -> {
-    if (getCount()==0) {
-      this.pressedCount += 1;
-      System.out.println("here1");
-      setColor(Color.kDeepSkyBlue);
-    } else if (getCount()==1) {
-      this.pressedCount+= 1;
-      System.out.println("here2");
-      setColor(Color.kBrown);
-    } else {
-      this.pressedCount = 0;
-      System.out.println("here3");
-      setColor(Color.kDarkOliveGreen);;
-  }});
+      if (getCount()==0) {
+        this.pressedCount += 1;
+        setColor(Color.kDeepSkyBlue);
+      } else if (getCount()==1) {
+        this.pressedCount+= 1;
+        setColor(Color.kBrown);
+      } else {
+        this.pressedCount = 0;
+        setColor(Color.kDarkOliveGreen);;
+       }});
   }
 
   public Command testEnums(Color selectedColor) {

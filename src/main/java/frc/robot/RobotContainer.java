@@ -34,7 +34,7 @@ public class RobotContainer {
 
     public LEDSubsystem leds = new LEDSubsystem();
 
-    public LEDStripSubsystem ledStrip = new LEDStripSubsystem();
+    public LEDStripSubsystem ledStrip = new LEDStripSubsystem(Constants.redStripPort, Constants.greenStripPort, Constants.blueStripPort);
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController m_driverController =
