@@ -82,19 +82,47 @@ public class LEDStripSubsystem extends SubsystemBase {
     return (int) Math.round((((double) eightbit)/255.0)*4095.0);
   }
 
-  public Command testColors() {
+  public Command testRainbowColors() {
     
     return this.runOnce(() -> {
       if (getCount()==0) {
         this.pressedCount += 1;
-        setColor(Color.kDeepSkyBlue);
+        setColor(Color.kRed);
       } else if (getCount()==1) {
         this.pressedCount+= 1;
-        setColor(Color.kBrown);
+        setColor(Color.kOrange);
+      }else if (getCount()==2) {
+        this.pressedCount+= 1;
+        setColor(Color.kYellow);
+      }else if (getCount()==3) {
+        this.pressedCount+= 1;
+        setColor(Color.kGreen);
+      }else if (getCount()==4) {
+        this.pressedCount+= 1;
+        setColor(Color.kBlue);
+      }else if (getCount()==5) {
+        this.pressedCount+= 1;
+        setColor(Color.kIndigo);
       } else {
         this.pressedCount = 0;
-        setColor(Color.kDarkOliveGreen);;
+        setColor(Color.kViolet);;
        }});
+  }
+
+  public Command testRGBColors() {
+    
+    return this.runOnce(() -> {
+      if (getCount()==0) {
+        this.pressedCount += 1;
+        setRGB(255, 0, 0);
+      } else if (getCount()==1) {
+        this.pressedCount+= 1;
+        setRGB(0, 255, 0);
+      }else {
+        this.pressedCount =0;
+        setRGB(0, 0, 255);
+      }});
+
   }
 
   public Command testEnums(Color selectedColor) {
