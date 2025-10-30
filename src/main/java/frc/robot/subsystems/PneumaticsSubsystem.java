@@ -11,11 +11,18 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 import frc.robot.Constants;
 
 public class PneumaticsSubsystem extends SubsystemBase {
     public static Solenoid reserveSolenoid = new Solenoid(PneumaticsModuleType.REVPH, Constants.RESERVE_SOLENOID_ID);
     public static DigitalOutput cannonTrigger = new DigitalOutput(9);
+
+    // Capicator 
+    public static Relay relay = new Relay(1);
+    // public static Relay relay = new Relay(1, Relay.Direction.)
+
     public static Compressor compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.REVPH);
     public static boolean compressing = true;
 
@@ -23,6 +30,11 @@ public class PneumaticsSubsystem extends SubsystemBase {
         unTriggerCannon();
         toggleCompressor();
     }
+
+//     public Value Periodic() {
+//         // return relay.get();
+            
+//    }
 
 
     public void toggleCompressor() {
@@ -57,5 +69,9 @@ public class PneumaticsSubsystem extends SubsystemBase {
     public Command unTriggerCannon() {
         return new InstantCommand(() -> cannonTrigger.set(true));
     }
+
+    // public Command triggerCannonRelay() {
+    //     return new InstantCommand(() -> relay.set(false));
+    // }
 
 }

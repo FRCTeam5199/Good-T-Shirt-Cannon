@@ -4,18 +4,20 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.FiringCommands;
-import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.PneumaticHub;
-import edu.wpi.first.wpilibj.PneumaticsBase;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.AimingSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LEDStripSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.PneumaticsSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,6 +35,8 @@ public class RobotContainer {
     public PneumaticsSubsystem pneumatics = new PneumaticsSubsystem();
 
     public LEDSubsystem leds = new LEDSubsystem();
+    // public static Relay relay = new Relay(1);
+
 
     public LEDStripSubsystem ledStrip = new LEDStripSubsystem(Constants.redStripPort, Constants.greenStripPort, Constants.blueStripPort);
 
@@ -59,6 +63,7 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+
         new Trigger(m_exampleSubsystem::exampleCondition)
                 .onTrue(new ExampleCommand(m_exampleSubsystem));
 
@@ -77,12 +82,18 @@ public class RobotContainer {
         m_driverController.povUp().onTrue(aim.tilt(.18)).onFalse(aim.tilt(0));
         m_driverController.povDown().onTrue(aim.tilt(-.25)).onFalse(aim.tilt(0));
 
-        m_driverController.a().onTrue(ledStrip.testRainbowColors()).onFalse(ledStrip.resetLights()); 
-        m_driverController.x().onTrue(ledStrip.testRGBColors()).onFalse(ledStrip.resetLights()); 
+        // m_driverController.a().onTrue(ledStrip.testRainbowColors()).onFalse(ledStrip.resetLights()); 
+        // m_driverController.x().onTrue(ledStrip.testRGBColors()).onFalse(ledStrip.resetLights()); 
+
+        m_driverController.a().onTrue(new InstantCommand(()->PneumaticsSubsystem.relay.set(Relay.Value.kOn))).onFalse(new InstantCommand(()->PneumaticsSubsystem.relay.set(Relay.Value.kOff)));
+        m_driverController.x().onTrue(new InstantCommand(()->PneumaticsSubsystem.relay.set(Relay.Value.kForward))).onFalse(new InstantCommand(()->PneumaticsSubsystem.relay.set(Relay.Value.kReverse)));
+
 
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
         // cancelling on release.
     }
+
+    
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -94,3 +105,4 @@ public class RobotContainer {
         return Autos.exampleAuto(m_exampleSubsystem);
     }
 }
+
